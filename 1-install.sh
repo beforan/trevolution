@@ -60,6 +60,7 @@ echo "Creating Alias for KUBECTL"
 
 # TODO: make alias adding conditional
 # I use nix home-manager to build my .zshrc, so you can't just add to it manually
+# Also I install kubectl standalone via nix, so don't need the alias
 
 # Detect the user's default shell configuration file
 # if [ -n "$ZSH_VERSION" ]; then
@@ -94,7 +95,7 @@ echo "Alias is now permanent and active."
 alias kubectl='microk8s kubectl'
 
 echo "Set Kubeconfig"
-sudo microk8s config > ~/.kube/config
+sudo microk8s config > ~/.kube/config # NOTE: this is kubectl config, so if you have standalone kubectl it will also use the microk8s cluster
 
 
 echo "FINISHED"

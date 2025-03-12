@@ -2,14 +2,19 @@
 
 # Update package lists and install required packages
 echo "Updating package lists and installing required packages..."
-sudo apt-get update -y
-sudo apt-get install -y apt-transport-https curl
+sudo dnf check-update -y
+sudo dnf install -y curl
 
 # Install snapd and enable classic confinement
 echo "Installing snapd and enabling classic confinement..."
-sudo apt-get install -y snapd
+sudo dnf install -y snapd
 sudo snap install core
 sudo snap enable --classic snapd
+
+# Fedora needs a symlink for classic mode: https://snapcraft.io/install/kontena-lens/fedora
+# error: cannot install "microk8s": classic confinement requires snaps under /snap or symlink from
+#       /snap to /var/lib/snapd/snap
+sudo ln -s /var/lib/snapd/snap /snap
 
 # Install MicroK8s using the latest stable channel
 echo "Installing MicroK8s from the $1 channel..."

@@ -63,11 +63,20 @@ This is all microk8s or kubectl commands, so once you have microk8s it should Ju
 
 ## `3-lens.sh`
 
-I think this should be optional as I think Lens needs a license.
+I think this should be optional (probably not numbered) as I think Lens needs a license.
+
+Consumers may prefer alternatives (see below).
 
 Currently this script in `main` is Debian specific (`apt install`), in `fedora` it's Linux specific using snaps.
 
 Other Host environments may optionally install this their favourite way.
+
+### Alternatives
+
+- Open Lens (on Flathub, probably elsewhere)
+- k9s
+- kubernetes-dashboard
+- ...?
 
 ## `4-watcher.sh`
 

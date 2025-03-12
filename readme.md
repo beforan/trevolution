@@ -59,7 +59,7 @@ The below should be broadly applicable to all host environments, but may be done
 
 ## `2-argocd.sh`
 
-This is all kubectl commands, so once you have any kubernetes distro (with calico) it should work. Obvs we prefer microk8s with the plugins per the above.
+This is all microk8s or kubectl commands, so once you have microk8s it should Just Work.
 
 ## `3-lens.sh`
 
@@ -71,11 +71,15 @@ Other Host environments may optionally install this their favourite way.
 
 ## `4-watcher.sh`
 
-This is all kubectl commands so host non-specific, as with `2-argocd.sh`.
+This is all (mcirok8s) kubectl commands so host non-specific, as with `2-argocd.sh`.
+
+`// TODO: can it be vanilla kubectl only?`
 
 ## `show-argocd.sh`
 
-This is kubectl commands so host non-specific.
+This is (microk8s) kubectl commands so host non-specific.
+
+`// TODO: can it be vanilla kubectl only?`
 
 ## `uninstall.sh`
 

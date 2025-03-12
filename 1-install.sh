@@ -58,33 +58,31 @@ sudo microk8s enable hostpath-storage
 #Alias
 echo "Creating Alias for KUBECTL"
 
-# TODO: make alias adding conditional
-# I use nix home-manager to build my .zshrc, so you can't just add to it manually
-# Also I install kubectl standalone via nix, so don't need the alias
+# TODO: make alias adding conditional?
 
 # Detect the user's default shell configuration file
-# if [ -n "$ZSH_VERSION" ]; then
-#     SHELL_CONFIG="$HOME/.zshrc"
-# elif [ -n "$FISH_VERSION" ]; then
-#     SHELL_CONFIG="$HOME/.config/fish/config.fish"
-# else
-#     SHELL_CONFIG="$HOME/.bashrc"
-# fi
+if [ -n "$ZSH_VERSION" ]; then
+    SHELL_CONFIG="$HOME/.zshrc"
+elif [ -n "$FISH_VERSION" ]; then
+    SHELL_CONFIG="$HOME/.config/fish/config.fish"
+else
+    SHELL_CONFIG="$HOME/.bashrc"
+fi
 
-# # Add alias if not already present
-# if ! grep -q "alias kubectl='microk8s kubectl'" "$SHELL_CONFIG"; then
-#     echo "alias kubectl='microk8s kubectl'" >> "$SHELL_CONFIG"
-#     echo "Alias added to $SHELL_CONFIG"
-# else
-#     echo "Alias already exists in $SHELL_CONFIG"
-# fi
+# Add alias if not already present
+if ! grep -q "alias kubectl='microk8s kubectl'" "$SHELL_CONFIG"; then
+    echo "alias kubectl='microk8s kubectl'" >> "$SHELL_CONFIG"
+    echo "Alias added to $SHELL_CONFIG"
+else
+    echo "Alias already exists in $SHELL_CONFIG"
+fi
 
-# # Apply changes for the current session
-# case "$SHELL_CONFIG" in
-#     *bashrc) source "$HOME/.bashrc" ;;
-#     *zshrc) source "$HOME/.zshrc" ;;
-#     *config.fish) source "$HOME/.config/fish/config.fish" ;;
-# esac
+# Apply changes for the current session
+case "$SHELL_CONFIG" in
+    *bashrc) source "$HOME/.bashrc" ;;
+    *zshrc) source "$HOME/.zshrc" ;;
+    *config.fish) source "$HOME/.config/fish/config.fish" ;;
+esac
 
 echo "Alias setup complete. Restart your terminal or run 'source $SHELL_CONFIG' to apply."
 

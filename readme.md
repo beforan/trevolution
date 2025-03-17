@@ -93,3 +93,35 @@ This is (microk8s) kubectl commands so host non-specific.
 ## `uninstall.sh`
 
 This uses snaps to uninstall microk8s, so is Linux specific.
+
+# non microk8s thoughts
+
+The main initial thing for using non microk8s is considering what microk8s features (or in particular addons!) are needed and how to fulfill them on another distro.
+
+## Calico
+
+We expect a k8s distro that supports Calico.
+
+Minikube supports it with `minikube start --cni calico`
+
+https://minikube.sigs.k8s.io/docs/handbook/network_policy/
+
+## CoreDNS
+
+We should be using CoreDNS.
+
+Minikube should be possible: https://coredns.io/2017/04/28/coredns-for-minikube/
+
+This is probably the biggest faff as for many distros it means understanding deploying CoreDNS on the cluster (rather than the simple microk8s addon).
+
+## Hostpath Storage (for Dev)
+
+Minikube is configured for this by default: https://minikube.sigs.k8s.io/docs/handbook/persistent_volumes/
+
+## Other addons
+
+Dashboard and Helm shouldn't really matter. They are installable independently.
+
+Helm can be installed the users favourite way, just as kubectl can.
+
+Dashboard can be installed independently or may be provided by the user's distro (e.g. Minikube ships with it and can be used by `minikube dashboard`)

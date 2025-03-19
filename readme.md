@@ -32,11 +32,13 @@ cat 4-watcher.sh | sh
 
 ## Break down of the steps in `1-install.sh`
 
+Installs microk8s. If you want to use a different distro you don't need this script, but some of the steps may be of interest for configuring your alternative distro.
+
 This script does a number of things; some of them are host os specific. `main` targets Ubuntu.
 
 1. Install dependencies e.g. curl if necessary
 1. Install snapd if necessary
-  - enable snaps classic mode
+    - enable snaps classic mode
 1. Add snaps to PATH
 
 The above are linux specific prereqs for installing microk8s, since it's only distributed by snap for linux.
@@ -47,19 +49,28 @@ The below should be broadly applicable to all host environments, but may be done
 > **Read these steps!** This is the main reusable bit.
 
 1. Install microk8s
-  - The scripts do this for linux via snaps, but obvs this step is applicable to any host environment
+    - The scripts do this for linux via snaps, but obvs this step is applicable to any host environment
 1. Add user to microk8s group (some environments may need a reboot here)
 1. Install microk8s plugins
-  - useful in all cases
+    - useful in all cases
 1. Add kubectl alias
-  - host environment specific
-  - this should maybe be optional - user could also install kubectl standalone and not need this
+    - host environment specific
+    - this should maybe be optional - user could also install kubectl standalone and not need this
 1. Configure kubectl with microk8s config
-  - useful in all cases
+    - useful in all cases
 
 ## `2-argocd.sh`
 
 This is all microk8s or kubectl commands, so once you have microk8s it should Just Work.
+
+`2a-argocd.sh` is a microk8s independent version that should work for other suitable distros e.g. Minikube.
+
+There may be some caveats, e.g.
+
+- on Minikube, additional port forwarding may be needed to access argocd in a browser.
+    - Using minikube CLI: `minikube service argocd-server -n argocd --url`
+    - Using vanilla kubectl: `kubectl -n argocd port-forward svc/argocd-server <ARGOCD_PORT>:80`
+
 
 ## `3-lens.sh`
 
@@ -80,19 +91,19 @@ Other Host environments may optionally install this their favourite way.
 
 ## `4-watcher.sh`
 
-This is all (mcirok8s) kubectl commands so host non-specific, as with `2-argocd.sh`.
+This is all (microk8s) kubectl commands so host non-specific, as with `2-argocd.sh`.
 
-`// TODO: can it be vanilla kubectl only?`
+`4a-watcher.sh` is the Vanilla kubectl version.
 
 ## `show-argocd.sh`
 
 This is (microk8s) kubectl commands so host non-specific.
 
-`// TODO: can it be vanilla kubectl only?`
+`show-argocd-vanilla.sh` is the Vanilla kubectl version.
 
 ## `uninstall.sh`
 
-This uses snaps to uninstall microk8s, so is Linux specific.
+This uses snaps to uninstall microk8s, so is Linux and microk8s specific.
 
 # non microk8s thoughts
 
@@ -110,9 +121,9 @@ https://minikube.sigs.k8s.io/docs/handbook/network_policy/
 
 We should be using CoreDNS.
 
-Minikube should be possible: https://coredns.io/2017/04/28/coredns-for-minikube/
+Minikube does by default now.
 
-This is probably the biggest faff as for many distros it means understanding deploying CoreDNS on the cluster (rather than the simple microk8s addon).
+This could probably be the biggest faff as for some distros if it means understanding deploying CoreDNS on the cluster (rather than the simple microk8s addon).
 
 ## Hostpath Storage (for Dev)
 

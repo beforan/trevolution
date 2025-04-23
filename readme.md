@@ -147,9 +147,8 @@ Podman support is technically experimental but I've had success with the followi
 - `minikube config set rootless true`
 - `minikube start --driver podman --container-runtime containerd --cni calico`
 
-note you can set all the `start` args as defaults, e.g.
+note you can set many (but not all!) of the `start` args as defaults, e.g.
 - `minikube config set rootless true`
 - `minikube config set driver podman`
 - `minikube config set container-runtime containerd`
-- `minikube config set cni calico`
-- `minikube start`
+- `minikube start --cni calico`

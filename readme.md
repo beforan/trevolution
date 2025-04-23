@@ -87,6 +87,7 @@ Other Host environments may optionally install this their favourite way.
 - Open Lens (on Flathub, probably elsewhere)
 - k9s
 - kubernetes-dashboard
+- Podman Desktop
 - ...?
 
 ## `4-watcher.sh`
@@ -136,3 +137,19 @@ Dashboard and Helm shouldn't really matter. They are installable independently.
 Helm can be installed the users favourite way, just as kubectl can.
 
 Dashboard can be installed independently or may be provided by the user's distro (e.g. Minikube ships with it and can be used by `minikube dashboard`)
+
+# Minikube specifics
+
+Minikube will run easily with Docker or Podman (Rootful or Rootless). Podman Desktop has nice kubernetes management too.
+
+Podman support is technically experimental but I've had success with the following sort of setup:
+
+- `minikube config set rootless true`
+- `minikube start --driver podman --container-runtime containerd --cni calico`
+
+note you can set all the `start` args as defaults, e.g.
+- `minikube config set rootless true`
+- `minikube config set driver podman`
+- `minikube config set container-runtime containerd`
+- `minikube config set cni calico`
+- `minikube start`
